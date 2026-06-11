@@ -3,97 +3,334 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>People's Democratic Republic of Goetzman</title>
+  <title>The Democratic People's Republic of Goetzman — Owl Reserve Note</title>
+  <meta name="description" content="Official treasury of the Democratic People's Republic of Goetzman. Backed entirely by the collectible Owl Reserve $100 note, featuring Supreme Treasurer Michael Goetzman." />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:title" content="The Democratic People's Republic of Goetzman" />
+  <meta property="og:description" content="One Hundred Secret Bucks. Backed by the full faith and credit of the Owl Reserve. In Goetzman We Trust." />
+  <meta property="og:image" content="images/goetzman-bill-front.png" />
+  <meta property="og:type" content="website" />
+
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0b1220;
-      --card: #172235;
-      --accent: #66d39e;
-      --text: #eef6ff;
-      --muted: #b8c5d6;
+      --ink: #0c3b2e;        /* treasury green */
+      --ink-2: #0a2e24;
+      --gold: #d9b14a;
+      --gold-soft: #efd58a;
+      --bg: #06140f;
+      --paper: #f4f1e4;
+      --text: #eef6ef;
+      --muted: #aebcb4;
+      --card: #0f241c;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: radial-gradient(circle at top, #183050 0%, var(--bg) 55%);
       color: var(--text);
+      background:
+        radial-gradient(circle at 50% -10%, #14402f 0%, var(--bg) 60%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0 2px, transparent 2px 14px);
       min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    /* Top seal / wordmark bar */
+    header.gov {
+      text-align: center;
+      padding: 26px 18px 6px;
+    }
+    .crest {
+      font-size: 2.1rem;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.5));
+    }
+    .wordmark {
+      margin: 8px 0 2px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: clamp(.72rem, 2.6vw, .95rem);
+      color: var(--gold-soft);
+      font-weight: 700;
+    }
+    .motto {
+      margin: 0;
+      font-style: italic;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 24px 20px 8px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(1.7rem, 5.2vw, 3.1rem);
+      line-height: 1.08;
+      margin: 10px 0 6px;
+      text-shadow: 0 2px 20px rgba(0,0,0,.5);
+    }
+    .hero h1 .denom { color: var(--gold); }
+    .hero p.lede {
+      max-width: 640px;
+      margin: 0 auto 6px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+    }
+
+    /* The bill — centerpiece */
+    .bill-stage {
+      max-width: 760px;
+      margin: 26px auto 8px;
+      padding: 0 16px;
+      perspective: 1600px;
+    }
+    .bill {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 920 / 362;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform .9s cubic-bezier(.2,.8,.2,1);
+      border-radius: 12px;
+      filter: drop-shadow(0 26px 50px rgba(0,0,0,.55));
+    }
+    .bill.flipped { transform: rotateY(180deg); }
+    .bill .face {
+      position: absolute;
+      inset: 0;
+      /* Visibility is driven by opacity (swapped at the flip's midpoint) rather
+         than backface-visibility, which some engines don't honor reliably. */
+      transition: opacity 0s linear .45s;
+    }
+    .bill .face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 12px;
+      border: 1px solid rgba(217,177,74,.35);
+    }
+    .bill .front { opacity: 1; }
+    .bill .back  { opacity: 0; transform: rotateY(180deg); }
+    .bill.flipped .front { opacity: 0; }
+    .bill.flipped .back  { opacity: 1; }
+    .flip-hint {
+      margin: 14px 0 0;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+    }
+    .flip-hint button {
+      background: transparent;
+      border: 1px solid rgba(217,177,74,.5);
+      color: var(--gold-soft);
+      font: inherit;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .78rem;
+      padding: 7px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    .flip-hint button:hover { background: rgba(217,177,74,.14); }
+    .flip-hint button:active { transform: translateY(1px); }
+
+    /* Generic section card */
+    main { max-width: 1040px; margin: 0 auto; padding: 8px 20px 60px; }
+    .grid {
       display: grid;
-      place-items: center;
-      padding: 24px;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      margin-top: 34px;
     }
     .card {
-      width: min(850px, 100%);
-      background: color-mix(in srgb, var(--card) 88%, black);
-      border: 1px solid #2b3f5d;
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      background: linear-gradient(180deg, var(--card), var(--ink-2));
+      border: 1px solid rgba(217,177,74,.18);
+      border-radius: 16px;
+      padding: 22px;
     }
-    h1 {
-      margin: 0 0 10px;
-      font-size: clamp(1.5rem, 4vw, 2.3rem);
-      line-height: 1.2;
+    .card h3 {
+      margin: 0 0 8px;
+      color: var(--gold-soft);
+      font-size: 1.05rem;
+      letter-spacing: .02em;
     }
-    .subtitle {
-      margin: 0 0 20px;
-      color: var(--muted);
-    }
-    .badge {
-      display: inline-block;
-      margin-bottom: 18px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+    .card p, .card ul { margin: 0; color: #d7e3da; }
+    .card ul { padding-left: 20px; }
+    .card li { margin: 7px 0; }
+
+    .section-title {
+      text-align: center;
+      margin: 44px 0 4px;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      color: #10291f;
-      background: var(--accent);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.78rem;
+      color: var(--gold);
+      font-size: .9rem;
     }
-    ul {
-      margin: 16px 0 0;
-      padding-left: 22px;
+
+    .specsheet {
+      margin-top: 18px;
+      border: 1px dashed rgba(217,177,74,.4);
+      border-radius: 14px;
+      overflow: hidden;
     }
-    li { margin: 10px 0; }
-    .money {
-      margin-top: 24px;
-      padding: 14px;
-      border: 1px dashed #3b5379;
-      border-radius: 12px;
-      color: #d5e3f5;
-      background: #121f31;
+    .specsheet table { width: 100%; border-collapse: collapse; }
+    .specsheet td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      font-size: .95rem;
     }
-    strong { color: #b3f0d1; }
+    .specsheet tr:last-child td { border-bottom: none; }
+    .specsheet td:first-child {
+      color: var(--gold-soft);
+      width: 42%;
+      font-weight: 600;
+    }
+    .specsheet td:last-child { color: #d7e3da; }
+
+    .treasury-notice {
+      margin: 40px auto 0;
+      max-width: 760px;
+      text-align: center;
+      padding: 22px 24px;
+      border-radius: 16px;
+      background:
+        repeating-linear-gradient(45deg, rgba(217,177,74,.05) 0 8px, transparent 8px 16px),
+        var(--ink);
+      border: 1px solid rgba(217,177,74,.25);
+      color: var(--gold-soft);
+      font-size: .95rem;
+    }
+    .treasury-notice strong { color: #fff; }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px 50px;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+    footer a { color: var(--gold-soft); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bill { transition: none; }
+      html { scroll-behavior: auto; }
+    }
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="badge">Officially Unofficial Fan Roast</div>
-    <h1>Welcome to the People's Democratic Republic of Goetzman</h1>
-    <p class="subtitle">
-      A playful, affectionate parody honoring Michael Goetzman: hacker, conference-builder
-      (SecretCon and CypherCon), solarpunk enjoyer, and original DEF CON staff legend.
+  <header class="gov">
+    <div class="crest">🦉</div>
+    <p class="wordmark">The Democratic People's Republic of Goetzman</p>
+    <p class="motto">Owl Reserve Note · Series 2030 · In Goetzman We Trust</p>
+  </header>
+
+  <section class="hero">
+    <h1>One Hundred <span class="denom">Secret Bucks</span>,<br />backed by the full faith of the Owl Reserve.</h1>
+    <p class="lede">
+      The official, fully collectible currency of the regime — featuring Supreme
+      Treasurer <strong>Michael Goetzman</strong>, hacker, conference architect, and
+      reluctant monarch.
     </p>
 
-    <p>
-      Citizens of the internet are hereby informed that <strong>Supreme Treasurer Goetzman</strong>
-      now presides over an economy backed entirely by collectible comedy prop bills.
-    </p>
+    <div class="bill-stage">
+      <div class="bill" id="bill" role="button" tabindex="0"
+           aria-label="The $100 Goetzman note. Activate to flip between front and back.">
+        <div class="face front">
+          <img src="images/goetzman-bill-front.png"
+               alt="Front of the $100 Owl Reserve Note: Michael Goetzman crowned and robed as monarch, holding a scepter." />
+        </div>
+        <div class="face back">
+          <img src="images/goetzman-bill-back.png"
+               alt="Back of the $100 note: three friends carved into a Mount Rushmore parody, captioned 'One Time at Burning Man'." />
+        </div>
+      </div>
+      <p class="flip-hint">
+        <button id="flipBtn" type="button">↻ Flip the note</button>
+      </p>
+    </div>
+  </section>
 
-    <ul>
-      <li>National bird: the packet-sniffing falcon.</li>
-      <li>Official energy policy: solar panels on every hackerspace roof.</li>
-      <li>Primary export: extremely niche cybersecurity jokes.</li>
-      <li>Secondary export: conference lore and suspiciously shiny badges.</li>
-    </ul>
+  <main>
+    <p class="section-title">State of the Regime</p>
+    <div class="grid">
+      <div class="card">
+        <h3>🏛️ The Treasury</h3>
+        <p>Presided over by Supreme Treasurer Goetzman, who runs the economy the
+        same way he runs a conference: with suspiciously shiny badges and an
+        unreasonable amount of lore.</p>
+      </div>
+      <div class="card">
+        <h3>🎟️ National Holidays</h3>
+        <ul>
+          <li>CypherCon Eve</li>
+          <li>SecretCon Day of Observance</li>
+          <li>DEF CON Goon Appreciation Week</li>
+          <li>The Annual Pilgrimage to the Playa</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📦 Major Exports</h3>
+        <ul>
+          <li>Extremely niche cybersecurity jokes</li>
+          <li>Conference lore (renewable resource)</li>
+          <li>Solarpunk optimism by the kilowatt</li>
+          <li>Opulent Temple afterglow</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>⚡ Energy Policy</h3>
+        <p>Solar panels on every hackerspace roof. The national grid is powered
+        entirely by good vibes, dust storms, and the residual heat of a thousand
+        CTF flags being captured.</p>
+      </div>
+    </div>
 
-    <p class="money">
-      Treasury notice: “In Goetzman We Trust” notes are legal tender only at
-      imaginary embassies, CTF afterparties, and among friends who appreciate a good roast.
+    <p class="section-title">Note Specifications</p>
+    <div class="specsheet">
+      <table>
+        <tr><td>Denomination</td><td>$100 · One Hundred Secret Bucks</td></tr>
+        <tr><td>Issuing authority</td><td>Owl Reserve Note</td></tr>
+        <tr><td>Portrait (obverse)</td><td>Supreme Treasurer Goetzman, crowned</td></tr>
+        <tr><td>Reverse</td><td>Mount Rushmore, "One Time at Burning Man"</td></tr>
+        <tr><td>Serial</td><td>F1337A8675309</td></tr>
+        <tr><td>Series</td><td>2030</td></tr>
+        <tr><td>Legal tender</td><td>At imaginary embassies & CTF afterparties only</td></tr>
+      </table>
+    </div>
+
+    <p class="treasury-notice">
+      <strong>Treasury Notice:</strong> This note is not legal tender for all debts,
+      public or private. It is, however, legal tender among friends who appreciate a
+      good roast. Affectionately issued in honor of Michael Goetzman. No actual
+      monarchy was established in the making of this currency.
     </p>
   </main>
+
+  <footer>
+    A loving parody of <a href="https://cyphercon.com" rel="noopener" target="_blank">CypherCon</a>
+    &amp; <a href="https://secretcon.com" rel="noopener" target="_blank">SecretCon</a> founder Michael Goetzman.
+    Long live the Owl Reserve. 🦉
+  </footer>
+
+  <script>
+    (function () {
+      var bill = document.getElementById('bill');
+      var btn = document.getElementById('flipBtn');
+      function flip() { bill.classList.toggle('flipped'); }
+      bill.addEventListener('click', flip);
+      btn.addEventListener('click', function (e) { e.stopPropagation(); flip(); });
+      bill.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+      });
+    })();
+  </script>
 </body>
 </html>
